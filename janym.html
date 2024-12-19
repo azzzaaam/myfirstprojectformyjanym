@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт для девушки</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #f0e6f6, #ffe4f1); /* Мягкий градиент */
+            color: #4a4a4a;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 2s ease-out;
+            position: relative;
+        }
+
+        .main-text {
+            font-size: 26px;
+            color: #f9a8d4;
+            margin-bottom: 30px;
+            font-weight: 600;
+            line-height: 1.4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .buttons button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid #f9a8d4;
+            border-radius: 15px;
+            background-color: #ffffff;
+            color: #f9a8d4;
+            transition: all 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #f9a8d4;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Анимация появления стикеров */
+        @keyframes fadeInSticker {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .sticker {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            display: none;
+            animation: fadeInSticker 1s ease-in-out;
+            border-radius: 50%;
+        }
+
+        /* Плавный фон для всей страницы */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Мелкие блестки, которые двигаются */
+        .glitter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.8;
+            animation: glitterAnimation 3s infinite ease-in-out;
+        }
+
+        @keyframes glitterAnimation {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(360deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0) rotate(720deg);
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Блестки -->
+<div class="glitter"></div>
+<div class="glitter" style="animation-delay: 1s;"></div>
+<div class="glitter" style="animation-delay: 2s;"></div>
+
+<div class="container">
+    <div class="main-text">сені сүйген бақытты жүректі сүйесіңба, жаным?</div>
+    
+    <div class="buttons">
+        <button id="yesButton">иә</button>
+        <button id="noButton">жоқ</button>
+    </div>
+
+    <!-- Стикеры -->
+    <div id="sticker1" class="sticker"></div>
+    <div id="sticker2" class="sticker"></div>
+    <div id="sticker3" class="sticker"></div>
+    <div id="sticker4" class="sticker"></div>
+    <div id="sticker5" class="sticker"></div>
+    <div id="sticker6" class="sticker"></div>
+    <div id="sticker7" class="sticker"></div>
+    <div id="sticker8" class="sticker"></div>
+    <div id="sticker9" class="sticker"></div>
+    <div id="sticker10" class="sticker"></div>
+    <div id="sticker11" class="sticker"></div>
+    <div id="sticker12" class="sticker"></div>
+    <div id="sticker13" class="sticker"></div>
+    <div id="sticker14" class="sticker"></div>
+    <div id="sticker15" class="sticker"></div>
+</div>
+
+<script>
+    let noClickCount = 0;
+
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+
+    const stickers = [
+        document.getElementById('sticker1'),
+        document.getElementById('sticker2'),
+        document.getElementById('sticker3'),
+        document.getElementById('sticker4'),
+        document.getElementById('sticker5'),
+        document.getElementById('sticker6'),
+        document.getElementById('sticker7'),
+        document.getElementById('sticker8'),
+        document.getElementById('sticker9'),
+        document.getElementById('sticker10'),
+        document.getElementById('sticker11'),
+        document.getElementById('sticker12'),
+        document.getElementById('sticker13'),
+        document.getElementById('sticker14'),
+        document.getElementById('sticker15')
+    ];
+
+    // Место для изменения изображений стикеров
+    const stickerImages = [
+        'https://cdn2.combot.org/sad_by_chizururobot/webp/9xe29c8c.webp', // Изображение для стикера 1
+        'https://data.chpic.su/stickers/m/Mamooshfobian/Mamooshfobian_002.webp?v=1712763306', // Изображение для стикера 2
+        'https://cdn2.combot.org/pack5351489876148351208_by_stickery6bot/webp/8xf09fa694.webp', // Изображение для стикера 3
+        'https://cdn2.combot.org/s_a_d_by_demybot/webp/30xf09f9294.webp', // Изображение для стикера 4
+        'https://cdn2.combot.org/pnyazurabg_by_fstikbot/webp/1xf09fa5ba.webp', // Изображение для стикера 5
+        'https://data.chpic.su/stickers/i/IpSadCat/IpSadCat_021.webp?v=1715540165', // Изображение для стикера 6
+        'https://cdn2.combot.org/jessysbaby/webp/39xf09fa7b8.webp', // Изображение для стикера 7
+        'https://cdn2.combot.org/jessysbaby/webp/37xf09fa7b8.webp', // Изображение для стикера 8
+        'https://cdn2.combot.org/cry_aaz/webp/17xf09f92a7.webp', // Изображение для стикера 9
+        'https://cdn2.combot.org/crollnkplz/webp/17xf09fa5ba.webp', // Изображение для стикера 10
+        'https://cdn2.combot.org/cryemoji/webp/0xf09f98ad.webp', // Изображение для стикера 11
+        'https://cdn2.combot.org/fhhf_by_jjkkiibot/webp/3xf09f9297.webp', // Изображение для стикера 12
+        'https://cdn2.combot.org/thereisnodreamtoburysadness_by_demybot/webp/33xe29ca8.webp', // Изображение для стикера 13
+        'https://cdn2.combot.org/thereisnodreamtoburysadness_by_demybot/webp/74xe29ca8.webp', // Изображение для стикера 14
+        'https://cdn2.combot.org/thereisnodreamtoburysadness_by_demybot/webp/15xe29ca8.webp'  // Изображение для стикера 15
+    ];
+
+    // Применение изображений стикеров
+    stickers.forEach((sticker, index) => {
+        sticker.style.backgroundImage = `url(${stickerImages[index]})`;
+    });
+
+    yesButton.addEventListener('click', function() {
+        window.location.href = 'file:///C:/Users/Aibo/Desktop/six.html'; // Ссылка, на которую переходим при клике на "иә"
+    });
+
+    noButton.addEventListener('click', function() {
+        noClickCount++;
+        
+        // Скрыть кнопку "жоқ" после 3 нажатий
+        if (noClickCount >= 3) {
+            noButton.style.display = 'none';
+
+            // Появление стикеров через несколько кликов
+            setTimeout(function() {
+                showSticker(0);
+            }, 500);
+
+            setTimeout(function() {
+                showSticker(1);
+            }, 1500);
+
+            setTimeout(function() {
+                showSticker(2);
+            }, 2500);
+
+            setTimeout(function() {
+                showSticker(3);
+            }, 3500);
+
+            setTimeout(function() {
+                showSticker(4);
+            }, 4500);
+
+            setTimeout(function() {
+                showSticker(5);
+            }, 5500);
+
+            setTimeout(function() {
+                showSticker(6);
+            }, 6500);
+
+            setTimeout(function() {
+                showSticker(7);
+            }, 7500);
+
+            setTimeout(function() {
+                showSticker(8);
+            }, 8500);
+
+            setTimeout(function() {
+                showSticker(9);
+            }, 9500);
+        }
+    });
+
+    // Функция для случайного появления стикера
+    function showSticker(index) {
+        const sticker = stickers[index];
+        const randomX = Math.random() * (window.innerWidth - 100);
+        const randomY = Math.random() * (window.innerHeight - 100);
+        
+        sticker.style.top = `${randomY}px`;
+        sticker.style.left = `${randomX}px`;
+        sticker.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

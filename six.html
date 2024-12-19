@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Второй сайт</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0e6f6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #f0e6f6, #ffe4f1);
+        }
+
+        .main-text {
+            font-size: 30px;
+            color: #f9a8d4;
+            margin-bottom: 30px;
+            font-weight: 600;
+            line-height: 1.4;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Эффект для хлопушек */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f9a8d4;
+            border-radius: 50%;
+            animation: confettiFall 3s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Анимация для текста */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Стикеры */
+        .sticker {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            display: none;
+            border-radius: 50%;
+            animation: fadeInSticker 1s ease-in-out;
+        }
+
+        @keyframes fadeInSticker {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-text">жалғызым менің, сені ғана сүйіп өтетін болам, уәде</div>
+
+    <!-- Стикеры (места для картинок) -->
+    <div id="sticker1" class="sticker"></div>
+    <div id="sticker2" class="sticker"></div>
+    <div id="sticker3" class="sticker"></div>
+    <div id="sticker4" class="sticker"></div>
+
+    <script>
+        // Массив с URL изображений стикеров
+        const stickerImages = [
+            'https://cdn2.combot.org/arielsonari/webp/3xf09f98ad.webp', // Замените на свой URL для первого стикера
+            'https://cdn2.combot.org/arielsonari/webp/18xf09f9290.webp', // Замените на свой URL для второго стикера
+            'https://cdn2.combot.org/arielsonari/webp/9xe298baefb88f.webp', // Замените на свой URL для третьего стикера
+            'https://cdn2.combot.org/fhhf_by_jjkkiibot/webp/94xf09f9297.webp'  // Замените на свой URL для четвертого стикера
+        ];
+
+        // Функция для создания хлопушек
+        function createConfetti() {
+            const confettiCount = 100; // Количество хлопушек
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                // Генерация случайного цвета для хлопушки
+                confetti.style.backgroundColor = getRandomColor();
+                // Генерация случайной позиции
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.animationDuration = Math.random() * 2 + 2 + 's'; // Случайная продолжительность анимации
+                confetti.style.animationDelay = Math.random() * 2 + 's'; // Случайная задержка
+                document.body.appendChild(confetti);
+            }
+        }
+
+        // Функция для генерации случайного цвета
+        function getRandomColor() {
+            const colors = ['#f9a8d4', '#fdcfe8', '#ffb3c1', '#ff70a6', '#f2a9ca'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Функция для появления стикеров вокруг текста, не перекрывая его
+        function showSticker(stickerId, imageUrl) {
+            const sticker = document.getElementById(stickerId);
+            const textElement = document.querySelector('.main-text');
+            const textRect = textElement.getBoundingClientRect(); // Получаем позицию текста
+
+            // Сгенерировать случайное положение стикера, но не на самом тексте
+            let randomX = textRect.left + Math.random() * textRect.width - 50; // В пределах ширины текста
+            let randomY = textRect.top + Math.random() * textRect.height - 50; // В пределах высоты текста
+
+            // Убедимся, что стикер не перекрывает текст
+            // Если стикер выходит за пределы, то генерируем новое случайное положение
+            if (randomX < 0) randomX = 0;
+            if (randomY < 0) randomY = 0;
+            if (randomX + 100 > window.innerWidth) randomX = window.innerWidth - 100;
+            if (randomY + 100 > window.innerHeight) randomY = window.innerHeight - 100;
+
+            sticker.style.backgroundImage = `url(${imageUrl})`; // Устанавливаем фоновое изображение стикера
+            sticker.style.top = `${randomY}px`;
+            sticker.style.left = `${randomX}px`;
+            sticker.style.display = 'block';
+        }
+
+        // Запуск функций по загрузке страницы
+        window.onload = function() {
+            createConfetti(); // Запуск хлопушек
+
+            // Запуск появления стикеров через случайные интервалы
+            setTimeout(() => { showSticker('sticker1', stickerImages[0]); }, 1000);
+            setTimeout(() => { showSticker('sticker2', stickerImages[1]); }, 2000);
+            setTimeout(() => { showSticker('sticker3', stickerImages[2]); }, 3000);
+            setTimeout(() => { showSticker('sticker4', stickerImages[3]); }, 4000);
+        };
+    </script>
+
+</body>
+</html>
